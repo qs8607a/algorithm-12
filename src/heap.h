@@ -1,5 +1,7 @@
 ﻿#pragma once
 
+//TODO:HAVE_GRAPHVIZ 、HAVE_ACE
+
 #include <stddef.h>
 
 #ifdef HAVE_ACE
