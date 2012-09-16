@@ -376,6 +376,7 @@ static void RunConcurrent(int run) {
     state.quit_flag_.Release_Store(&state);  // Any non-NULL arg will do
     state.Wait(TestState::DONE);
   }
+  g.wait();
 }
 
 TEST_F(SkipTest, Concurrent1) { RunConcurrent(1); }
