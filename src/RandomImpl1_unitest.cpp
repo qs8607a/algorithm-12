@@ -7,6 +7,7 @@
 #include "randomImpl1.h"
 
 
+
 class RandomTest : public ::testing::Test {
 	virtual void SetUp() {}
 	virtual void TearDown() {}
