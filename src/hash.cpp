@@ -1,4 +1,4 @@
-// Copyright (c) 2011 The LevelDB Authors. All rights reserved.
+ï»¿// Copyright (c) 2011 The LevelDB Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file. See the AUTHORS file for names of contributors.
 
@@ -6,8 +6,8 @@
 #include "hash.h"
 
 /**
- * \brief ´ÓptrÖĞÒÔLittleEndianµÄ·½Ê½¶ÁÈ¡4¸ö×Ö½ÚµÄÕûÊı£¬
- * \param isLittleEndian ÎÒÃÇµÄÏµÍ³ÊÇLE±àÂëÂğ£¿
+ * \brief ä»pträ¸­ä»¥LittleEndiançš„æ–¹å¼è¯»å–4ä¸ªå­—èŠ‚çš„æ•´æ•°ï¼Œ
+ * \param isLittleEndian æˆ‘ä»¬çš„ç³»ç»Ÿæ˜¯LEç¼–ç å—ï¼Ÿ
  * \param ptr input
  */
 static uint32_t DecodeFixed32(bool isLittleEndian,const char* ptr) {
