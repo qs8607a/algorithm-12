@@ -7,18 +7,14 @@
 
 #include <string.h>
 
-#if 0
+
 // Include the appropriate platform specific file below.  If you are
 // porting to a new platform, see "port_example.h" for documentation
 // of what the new port_<platform>.h file must provide.
-#if defined(LEVELDB_PLATFORM_POSIX)
+#if defined(PLATFORM_POSIX)
 #  include "port_posix.h"
-#elif defined(LEVELDB_PLATFORM_WIN32)
+#elif defined(PLATFORM_WIN32)
 #  include "port_win32.h"
-#endif
-
-#else
-#include "port_win32.h"
 #endif
 
 #endif  // STORAGE_LEVELDB_PORT_PORT_H_

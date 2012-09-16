@@ -4,7 +4,7 @@
 
 #include <gtest/gtest.h>
 
-#include "randomimpl1.h"
+#include "randomImpl1.h"
 
 
 class RandomTest : public ::testing::Test {

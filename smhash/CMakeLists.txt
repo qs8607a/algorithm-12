@@ -1,5 +1,4 @@
 cmake_minimum_required(VERSION 2.6)
-add_definitions(-DUNICODE -D_UNICODE)
 add_library(
   SMHasherSupport
   AvalancheTest.cpp

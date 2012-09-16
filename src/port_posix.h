@@ -25,7 +25,7 @@
 #endif
 #include <stdint.h>
 #include <string>
-#include "port/atomic_pointer.h"
+#include "atomic_pointer.h"
 
 #ifdef LITTLE_ENDIAN
 #define IS_LITTLE_ENDIAN true
@@ -43,7 +43,7 @@
 #define fdatasync fsync
 #endif
 
-namespace leveldb {
+namespace slib {
 namespace port {
 
 static const bool kLittleEndian = IS_LITTLE_ENDIAN;
