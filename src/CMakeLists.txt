@@ -40,5 +40,9 @@ target_link_libraries (skiplist_unitest  optimized ${TBB_LIB} )
 target_link_libraries (skiplist_unitest  debug ${TBB_DEBUG_LIB})
 ADD_TEST(skiplist_unitest ${CMAKE_CURRENT_BINARY_DIR}/skiplist_unitest)
 
+add_executable(bloomfilter_unitest BloomFilter_unitest.cpp BloomFilter.h)
+target_link_libraries(bloomfilter_unitest gtest)
+ADD_TEST(bloomfilter_unitest ${CMAKE_CURRENT_BINARY_DIR}/bloomfilter_unitest)
+
 
 #target_link_libraries(btree db)
