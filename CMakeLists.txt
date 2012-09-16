@@ -1,0 +1,16 @@
+cmake_minimum_required (VERSION 2.6) 
+project (algorithm)
+
+if(WIN32)
+SET(GLOG_LIB libglog)
+SET(TBB_DEBUG_LIB tbb_debug)
+SET(TBB_LIB tbb)
+elseif(UNIX)
+SET(GLOG_LIB glog)
+SET(TBB_DEBUG_LIB tbb)
+SET(TBB_LIB tbb)
+endif()
+
+ADD_SUBDIRECTORY(gtest)
+ADD_SUBDIRECTORY(smhash)
+ADD_SUBDIRECTORY(src)
