@@ -4,13 +4,13 @@
 some algorithm test
 
 To build this project:
-1. svn co https://github.com/snnn/algorithm/trunk algorithm
-2. cd algorithm
-3. mkdir b1
-   cd b1
-   cmake ..
-4. make
-   make test
+1. svn co https://github.com/snnn/algorithm/trunk algorithm <br/>
+2. cd algorithm <br/>
+3. mkdir b1 <br/>
+   cd b1 <br/>
+   cmake .. <br/>
+4. make <br/>
+   make test <br/>
 
 
 1. src/SkipList.h : A SkipList.
