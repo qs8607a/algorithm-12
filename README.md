@@ -3,7 +3,7 @@
 
 some algorithm test
 
-To build this project:
+To build this project: <br/>
 1. svn co https://github.com/snnn/algorithm/trunk algorithm <br/>
 2. cd algorithm <br/>
 3. mkdir b1 <br/>
