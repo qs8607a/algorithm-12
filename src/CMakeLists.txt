@@ -19,6 +19,10 @@ add_executable(arena_unitest arena_unitest.cpp arena.h arena.cpp)
 target_link_libraries(arena_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
 ADD_TEST(arena_unitest ${CMAKE_CURRENT_BINARY_DIR}/arena_unitest)
 
+add_executable(binarytree_unitest binarytree_unitest.cpp binarytree.h binarytree.cpp)
+target_link_libraries(binarytree_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
+ADD_TEST(binarytree_unitest ${CMAKE_CURRENT_BINARY_DIR}/binarytree_unitest)
+
 if(WIN32)
 set(PLATFORM_SOURCE port_win32.h port_win32.cpp)
 elseif(UNIX)
