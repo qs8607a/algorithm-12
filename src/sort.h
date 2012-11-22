@@ -12,6 +12,12 @@ void swap(T& left,T& right){
 	left=right;
 	right=tmp;
 }
+
+template <typename T>
+bool isPowerOfTwo(T input){
+	return input && !(input & (input -1));
+}
+
 /**
  *  @brief  Return the minimum element in a range using comparison functor.
  *  @param  first  Start of range.

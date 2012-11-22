@@ -9,9 +9,7 @@
 
 class SortTest : public ::testing::Test {
 public:		
-	virtual void SetUp() {
-
-	}	
+	virtual void SetUp() {}	
 	virtual void TearDown() {}
 };
 
@@ -21,6 +19,24 @@ TEST_F(SortTest, swapInt) {
 	ASSERT_EQ(a,30);
 	ASSERT_EQ(b,10);
 }
+
+TEST_F(SortTest, isPowerOfTwo0) {	
+	ASSERT_FALSE(slib::isPowerOfTwo(0));
+}
+
+TEST_F(SortTest, isPowerOfTwo1) {	
+	//2的0次方是1，所以返回true
+	ASSERT_TRUE(slib::isPowerOfTwo(1));
+}
+
+TEST_F(SortTest, isPowerOfTwo2) {	
+	ASSERT_TRUE(slib::isPowerOfTwo(2));
+}
+
+TEST_F(SortTest, isPowerOfTwo4) {	
+	ASSERT_TRUE(slib::isPowerOfTwo(4));
+}
+
 
 TEST_F(SortTest, swapString) {
 	std::string a="abc",b="uhdufy7s3434fg";
