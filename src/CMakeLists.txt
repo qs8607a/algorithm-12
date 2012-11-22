@@ -15,6 +15,10 @@ add_executable(RandomImpl1_unitest RandomImpl1_unitest.cpp)
 target_link_libraries(RandomImpl1_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
 ADD_TEST(RandomImpl1_unitest ${CMAKE_CURRENT_BINARY_DIR}/RandomImpl1_unitest)
 
+add_executable(sort_unitest sort_unitest.cpp sort.h)
+target_link_libraries(sort_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
+ADD_TEST(sort_unitest ${CMAKE_CURRENT_BINARY_DIR}/sort_unitest)
+
 add_executable(arena_unitest arena_unitest.cpp arena.h arena.cpp)
 target_link_libraries(arena_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
 ADD_TEST(arena_unitest ${CMAKE_CURRENT_BINARY_DIR}/arena_unitest)
@@ -22,6 +26,10 @@ ADD_TEST(arena_unitest ${CMAKE_CURRENT_BINARY_DIR}/arena_unitest)
 add_executable(binarytree_unitest binarytree_unitest.cpp binarytree.h binarytree.cpp)
 target_link_libraries(binarytree_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
 ADD_TEST(binarytree_unitest ${CMAKE_CURRENT_BINARY_DIR}/binarytree_unitest)
+
+add_executable(slist_unitest slist_unitest.cpp slist.h slist.cpp)
+target_link_libraries(slist_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
+ADD_TEST(slist_unitest ${CMAKE_CURRENT_BINARY_DIR}/slist_unitest)
 
 if(WIN32)
 set(PLATFORM_SOURCE port_win32.h port_win32.cpp)

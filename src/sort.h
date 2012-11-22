@@ -2,6 +2,7 @@
 
 //#include <algorithm>
 #include <functional>
+#include <limits.h> //CHAR_BIT
 
 namespace slib {
 
@@ -126,10 +127,43 @@ void heap_sort(Iterator first, Iterator last, BinaryPredicate comp) {
  *
  */
 
-template<class Iterator>
-void heap_sort(Iterator first, Iterator last) {
-	heap_sort(first, last, std::greater<int>());
-}
+ template <typename T>
+ T roundup(T x,T y){
+	return (((x+y-1)/y)*y);
+ }
+
+ template <typename T>
+ T reverseBits(T v){
+	T r = v;
+	int s = sizeof(v) * CHAR_BIT - 1; // extra shift needed at end
+	for (v >>= 1; v; v >>= 1)
+	{   
+	  r <<= 1;
+	  r |= v & 1;
+	  s--;
+	}
+	r <<= s;
+	return r;
+ }
+ 
+ /*
+void bucket_sort(uint64_t* first, uint64_t* last,uint64_t min,uint64_t max) {
+	const size_t inputSize=last-first;
+	const size_t bucketLength=roundup(inputSize,2);
+	const uint64_t mask=reverseBits(bucketLength-1);
+	std::list<uint64_t>* buckets=new std::list<uint64_t>[bucketLength];
+	try{
+		for(uint64_t* i=first;i!=last;++i){
+			const uint64_t index= *i & mask;
+			
+		}
+	}catch(...){
+		delete[] buckets;
+		throw ;
+	}
+	delete[] buckets;
+} */
+
 
 /* \brief 二路归并，将两个已排序的Container合并排序并输出
  * \param[in] source1_begin Container1的起始位置,必须是一个Input Iterator
