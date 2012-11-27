@@ -12,8 +12,11 @@ class SListTest : public ::testing::Test {
 	virtual void TearDown() {}
 };
 
-TEST_F(SListTest, test1) {	
-	
+TEST_F(SListTest, test_add) {	
+	slib::LinkedList<int> list;
+	for(int i=0;i!=100000;++i){
+		list.append(i);
+	}
 }
 
 int main(int argc,char* argv[]){
