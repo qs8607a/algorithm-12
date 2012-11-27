@@ -1,16 +1,17 @@
-#pragma once
+﻿#pragma once
 
 #include <stdlib.h>
-#include <atomic>
+//#include <atomic>
+#include <tbb/atomic.h>
 #include <iterator>
 
 namespace slib{
 class ListHead{
 public:
 	ListHead *n, *p;
-    std::atomic_int ref;
+    tbb::atomic<int> ref;
     int size;
-    uint sharable : 1;
+    bool sharable ;
 
     static ListHead shared_null;
 };

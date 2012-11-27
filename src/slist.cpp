@@ -1,4 +1,4 @@
-#if HAVE_CONFIG_H
+﻿#if HAVE_CONFIG_H
 # include <config.h>
 #endif
 
@@ -8,6 +8,6 @@
 namespace slib{
 	ListHead ListHead::shared_null = {
 		&ListHead::shared_null, &ListHead::shared_null,
-		ATOMIC_VAR_INIT(1), 0, true
+		tbb::make_atomic(1), true, true
 	};
 }

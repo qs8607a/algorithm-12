@@ -1,9 +1,10 @@
-#if HAVE_CONFIG_H
+﻿#if HAVE_CONFIG_H
 # include <config.h>
 #endif
 
 #include <gtest/gtest.h>
 #include <algorithm>
+#include <stdint.h>
 #include "sort.h"
 
 
@@ -101,7 +102,7 @@ TEST_F(SortTest, reverseBits) {
 	ASSERT_EQ(slib::reverseBits((uint8_t)1),1<<7);
 	ASSERT_EQ(slib::reverseBits((uint16_t)1),1<<15);
 	ASSERT_EQ(slib::reverseBits((uint32_t)1),1<<31);
-	ASSERT_EQ(slib::reverseBits((uint64_t)1),1L<<63);
+	ASSERT_EQ(slib::reverseBits((uint64_t)1),((uint64_t)1)<<63);
 }
 
 
