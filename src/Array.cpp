@@ -11,11 +11,3 @@
 
 #include "Array.h"
 
-Array::Array() {
-	// TODO Auto-generated constructor stub
-
-}
-
-Array::~Array() {
-	// TODO Auto-generated destructor stub
-}

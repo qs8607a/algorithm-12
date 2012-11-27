@@ -2,8 +2,12 @@ cmake_minimum_required (VERSION 2.6)
 include_directories(${CMAKE_CURRENT_BINARY_DIR})
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
+add_executable(Array_unitest Array.cpp Array_unitest.cpp)
+target_link_libraries(Array_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
+ADD_TEST(Array_unitest ${CMAKE_CURRENT_BINARY_DIR}/Array_unitest)
+
 #TARGET_LINK_LIBRARIES(simple  gtest mmgc)
-add_executable(fib fib.cpp)
+add_executable(fib fib.cpp fib_unitest.cpp)
 target_link_libraries(fib gtest ${CMAKE_THREAD_LIBS_INIT})
 ADD_TEST(fib ${CMAKE_CURRENT_BINARY_DIR}/fib)
 
