@@ -1,5 +1,5 @@
 cmake_minimum_required (VERSION 2.6) 
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
+include_directories(${PROJECT_BINARY_DIR})
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
 add_executable(Array_unitest Array.cpp Array_unitest.cpp)
@@ -22,6 +22,14 @@ ADD_TEST(RandomImpl1_unitest ${CMAKE_CURRENT_BINARY_DIR}/RandomImpl1_unitest)
 add_executable(sort_unitest sort_unitest.cpp sort.h)
 target_link_libraries(sort_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
 ADD_TEST(sort_unitest ${CMAKE_CURRENT_BINARY_DIR}/sort_unitest)
+
+add_executable(TASLock_unitest TASLock_unitest.cpp TASLock.h TASLock.cpp)
+target_link_libraries(TASLock_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
+ADD_TEST(TASLock_unitest ${CMAKE_CURRENT_BINARY_DIR}/TASLock_unitest)
+
+add_executable(TTASLock_unitest TTASLock_unitest.cpp TTASLock.h TTASLock.cpp)
+target_link_libraries(TTASLock_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
+ADD_TEST(TTASLock_unitest ${CMAKE_CURRENT_BINARY_DIR}/TTASLock_unitest)
 
 add_executable(arena_unitest arena_unitest.cpp arena.h arena.cpp)
 target_link_libraries(arena_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
