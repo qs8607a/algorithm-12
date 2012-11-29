@@ -23,9 +23,12 @@ TEST_F(TTASLockTest, test1) {
 	lock.unlock();
 }
 
+static int counter1=0;
+static int loop_times=100000;
 void test_thread_func1(slib::TTASLock& lock){
-  for(int i=0;i!=100000;++i){
+  for(int i=0;i!=loop_times;++i){
 	lock.lock();
+	counter1++;
 	lock.unlock();
   }
 }
@@ -42,6 +45,7 @@ TEST_F(TTASLockTest, test2) {
 		t->join();
 		delete t;
 	}
+	EXPECT_EQ(counter1, threadCount*loop_times);
 }
 
 int main(int argc,char* argv[]){

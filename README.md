@@ -13,9 +13,13 @@ To build this project: <br/>
    make test <br/>
 
 
+All the code tested under "Windows 7 with Visual Studio 2012" and "Fedora 17 with gcc 4.7".
+   
 1. src/SkipList.h : A SkipList.
 1. src/fib.cpp: 以非递归的方式计算fib数列。
 1. src/heap.h: 数据结构，堆。
 1. src/hash.cpp: 一个简单的hash函数。 char[] -> uint32_t
 1. src/randomImpl1.h: LCG随机数生成器。
 1. src/sort.h： 几种排序算法
+1. src/TASLock.h: TAS spin-lock algorithm
+1. src/TTASLock.h: TTAS spin-lock algorithm

@@ -2,6 +2,12 @@ cmake_minimum_required (VERSION 2.6)
 include_directories(${PROJECT_BINARY_DIR})
 include_directories(${PROJECT_SOURCE_DIR}/include)
 
+if(WIN32)
+set(PLATFORM_SOURCE port_win32.h port_win32.cpp)
+elseif(UNIX)
+set(PLATFORM_SOURCE port_posix.h port_posix.cpp)
+endif()
+
 add_executable(Array_unitest Array.cpp Array_unitest.cpp)
 target_link_libraries(Array_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
 ADD_TEST(Array_unitest ${CMAKE_CURRENT_BINARY_DIR}/Array_unitest)
@@ -14,6 +20,16 @@ ADD_TEST(fib ${CMAKE_CURRENT_BINARY_DIR}/fib)
 add_executable(heap_unitest heap_unitest.cpp heap.h  MallocAllocator.cpp MallocAllocator.h)
 target_link_libraries(heap_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
 ADD_TEST(heap_unitest ${CMAKE_CURRENT_BINARY_DIR}/heap_unitest)
+
+add_executable(mutex_benchmark mutex_benchmark.cpp)
+target_link_libraries (mutex_benchmark  optimized ${TBB_LIB} )
+target_link_libraries (mutex_benchmark  debug ${TBB_DEBUG_LIB})
+target_link_libraries(mutex_benchmark rt)
+
+add_executable(mutex_benchmark2 mutex_benchmark2.cpp ${PLATFORM_SOURCE})
+target_link_libraries (mutex_benchmark2  optimized ${TBB_LIB} )
+target_link_libraries (mutex_benchmark2  debug ${TBB_DEBUG_LIB})
+target_link_libraries(mutex_benchmark2 rt)
 
 add_executable(RandomImpl1_unitest RandomImpl1_unitest.cpp)
 target_link_libraries(RandomImpl1_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
@@ -43,11 +59,7 @@ add_executable(slist_unitest slist_unitest.cpp slist.h slist.cpp)
 target_link_libraries(slist_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
 ADD_TEST(slist_unitest ${CMAKE_CURRENT_BINARY_DIR}/slist_unitest)
 
-if(WIN32)
-set(PLATFORM_SOURCE port_win32.h port_win32.cpp)
-elseif(UNIX)
-set(PLATFORM_SOURCE port_posix.h port_posix.cpp)
-endif()
+
 
 
 add_executable(port_unitest port_unitest.cpp ${PLATFORM_SOURCE})

@@ -2,31 +2,21 @@
 # include <config.h>
 #endif
 
-#include <gtest/gtest.h>
 
 #ifdef HAVE_CPP_THREAD_H
 #include <thread>
 #else
 #include <tbb/compat/thread>
 #endif
+#include <vector>
+#include <tbb/mutex.h>
 
-
-#include "TASLock.h"
-
-class TASLockTest : public ::testing::Test {
-	virtual void SetUp() {}
-	virtual void TearDown() {}
-};
-
-TEST_F(TASLockTest, test1) {
-	slib::TASLock lock;
-	lock.lock();
-	lock.unlock();
-}
+#include <tbb/tick_count.h>
+#include <iostream>
 
 static int counter1=0;
 static int loop_times=100000;
-void test_thread_func1(slib::TASLock& lock){
+void test_thread_func1(tbb::mutex& lock){
   for(int i=0;i!=loop_times;++i){
 	lock.lock();
 	counter1++;
@@ -34,10 +24,11 @@ void test_thread_func1(slib::TASLock& lock){
   }
 }
 
-TEST_F(TASLockTest, test2) {
-	slib::TASLock lock;
+int main(int argc,char* argv[]){
+	tbb::mutex lock;
 	const int threadCount=10;
 	std::vector<std::thread*> threads; 
+	tbb::tick_count t0 = tbb::tick_count::now();
 	for(int i=0;i!=threadCount;++i){
 		threads.push_back(new std::thread(test_thread_func1,std::ref(lock)));
 	}
@@ -46,12 +37,7 @@ TEST_F(TASLockTest, test2) {
 		t->join();
 		delete t;
 	}
-	EXPECT_EQ(counter1, threadCount*loop_times);
-}
-
-
-
-int main(int argc,char* argv[]){
-	::testing::InitGoogleTest(&argc, argv);  
-	return RUN_ALL_TESTS();
+	tbb::tick_count t1 = tbb::tick_count::now();	
+	std::cout<<"time for action = "<<(t1-t0).seconds()<<" seconds\n";
+	
 }
