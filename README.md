@@ -3,7 +3,9 @@
 
 some algorithm test
 
-To build this project: <br/>
+To build this project,you need cmake 2.8 and ( Visual Studio 2010 Or gcc 4.7 on Linux)<br/>
+
+Then, following these command:<br/>
 1. svn co https://github.com/snnn/algorithm/trunk algorithm <br/>
 2. cd algorithm <br/>
 3. mkdir b1 <br/>
@@ -13,7 +15,6 @@ To build this project: <br/>
    make test <br/>
 
 
-All the code tested under "Windows 7 with Visual Studio 2012" and "Fedora 17 with gcc 4.7".
    
 1. src/SkipList.h : A SkipList.
 1. src/fib.cpp: 以非递归的方式计算fib数列。
