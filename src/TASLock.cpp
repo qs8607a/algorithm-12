@@ -1,11 +1,4 @@
-﻿/*
- * TASLock.cpp
- *
- *  Created on: Mar 5, 2010
- *      Author: Changming Sun
- */
-
-#if HAVE_CONFIG_H
+﻿#if HAVE_CONFIG_H
 # include <config.h>
 #endif
 
@@ -13,22 +6,22 @@
 
 namespace slib{
 
-TASLock::TASLock(){
-state=tbb::make_atomic<bool>(false);
-}
+	TASLock::TASLock(){
+		state=tbb::make_atomic<bool>(false);
+	}
 
-void TASLock::lock(){
-	while(state.fetch_and_store(true)){}
-}
+	void TASLock::lock(){
+		while(state.fetch_and_store(true)){}
+	}
 
-bool TASLock::try_lock(){
-	//not impl
-	return false;
-}
+	bool TASLock::try_lock(){
+		//not impl
+		return false;
+	}
 
-void TASLock::unlock(){
-	state.store(false);
-}
+	void TASLock::unlock(){
+		state.store(false);
+	}
 
 }
 

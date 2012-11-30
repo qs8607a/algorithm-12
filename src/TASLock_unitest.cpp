@@ -10,7 +10,7 @@
 #include <tbb/compat/thread>
 #endif
 
-
+#include "ScopeGuard.h"
 #include "TASLock.h"
 
 class TASLockTest : public ::testing::Test {
@@ -29,8 +29,9 @@ static int loop_times=100000;
 void test_thread_func1(slib::TASLock& lock){
   for(int i=0;i!=loop_times;++i){
 	lock.lock();
+	LOKI_ON_BLOCK_EXIT_OBJ(lock,&slib::TASLock::unlock);
 	counter1++;
-	lock.unlock();
+	//lock.unlock();
   }
 }
 

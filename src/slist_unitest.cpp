@@ -19,9 +19,6 @@ TEST_F(SListTest, test_add) {
 		list.append(i);
 	}
 	std::for_each(list.begin(),list.end(),[](int i){std::cout<<i<<std::endl;});
-	/*for(auto i=list.begin();i!=list.end();++i){
-		std::cout<<*i<<std::endl;
-	}*/
 }
 
 int main(int argc,char* argv[]){
