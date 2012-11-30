@@ -111,9 +111,8 @@ public:
 			
 		}	
 	};
-	
-	class list_iterator
-{
+
+	class iterator{
 protected:
   Node* _M_current;
 
@@ -121,15 +120,16 @@ protected:
 
 public:
   typedef Node*                                 iterator_type;
-  typedef typename traits_type_::iterator_category iterator_category;
+  //typedef typename traits_type_::iterator_category iterator_category;
+  typedef std::bidirectional_iterator_tag  iterator_category;
   typedef typename traits_type_::value_type        value_type;
   typedef typename traits_type_::difference_type   difference_type;
   typedef typename traits_type_::reference         reference;
   typedef typename traits_type_::pointer           pointer;
 
-  list_iterator() : _M_current(NULL) { }
+  iterator() : _M_current(NULL) { }
 
-  explicit list_iterator(const Node* __i) : _M_current(__i) { }
+  iterator(Node* __i) : _M_current(__i) { }
 
   
   // Forward iterator requirements
@@ -142,42 +142,42 @@ public:
   { return &_M_current->t; }
 
   
-  bool operator==(const list_iterator &o) const { return _M_current == o._M_current; }
-  bool operator!=(const list_iterator &o) const { return _M_current != o._M_current; }
+  bool operator==(const iterator &o) const { return _M_current == o._M_current; }
+  bool operator!=(const iterator &o) const { return _M_current != o._M_current; }
   
-  /* bool operator==(const list_iterator &o) const
+  /* bool operator==(const iterator &o) const
 		{ return _M_current == o._M_current; }
-  bool operator!=(const list_iterator &o) const
+  bool operator!=(const iterator &o) const
 		{ return _M_current != o._M_current; } */
 		
-  list_iterator&
+  iterator&
   operator++(){
    _M_current = _M_current->next; 
    return *this;
   }
 
-  list_iterator
+  iterator
   operator++(int)
   {  Node *n = _M_current; _M_current = _M_current->next; return n; }
 
   // Bidirectional iterator requirements
-  list_iterator&
+  iterator&
   operator--()
   {
 	_M_current = _M_current->prev; 
 	return *this;
   }
 
-  list_iterator
+  iterator
   operator--(int)
   { Node *n = _M_current; _M_current = _M_current->prev; return n;}
 
 
-  list_iterator&
+  iterator&
   operator+=(const difference_type& j)
   { return *this = *this + j; }
 
-  list_iterator
+  iterator
   operator+(const difference_type& j) const
   { Node *n = _M_current; 
 	if (j > 0) {
@@ -191,17 +191,21 @@ public:
    }
 	
 
-  list_iterator&
+  iterator&
   operator-=(const difference_type& j)
   { return *this = *this - j;}
 
-  list_iterator
+  iterator
   operator-(const difference_type& j) const
   { return operator+(-j); }
 
   const Node*  base() const
   { return _M_current; }
 };
+		
+	iterator begin() { detach(); return e->next; }
+	 iterator end() { detach(); return e; }
+
 private:
 	void destroy(ListHead *x){
 		Node *y = reinterpret_cast<Node*>(x);
