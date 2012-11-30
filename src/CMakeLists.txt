@@ -59,6 +59,10 @@ add_executable(binarytree_unitest binarytree_unitest.cpp binarytree.h binarytree
 target_link_libraries(binarytree_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
 ADD_TEST(binarytree_unitest ${CMAKE_CURRENT_BINARY_DIR}/binarytree_unitest)
 
+add_executable(binarytree_travel_unitest binarytree_travel_unitest.cpp binarytree.h binarytree.cpp)
+target_link_libraries(binarytree_travel_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
+ADD_TEST(binarytree_travel_unitest ${CMAKE_CURRENT_BINARY_DIR}/binarytree_travel_unitest)
+
 add_executable(slist_unitest slist_unitest.cpp slist.h slist.cpp)
 target_link_libraries(slist_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
 ADD_TEST(slist_unitest ${CMAKE_CURRENT_BINARY_DIR}/slist_unitest)
