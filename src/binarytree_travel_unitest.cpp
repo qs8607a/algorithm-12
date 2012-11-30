@@ -35,7 +35,7 @@ public:
 };
 
 TEST_F(BinaryTreeTravelTest, inorder) {
-	slib::BstNode<std::string>::inOrderTravel(root);
+	slib::BstNode<std::string>::inOrderTravel(root,[](slib::BstNode<std::string>* node){std::cout<<node->data<<" ";});
 }
 
 int main(int argc,char* argv[]){

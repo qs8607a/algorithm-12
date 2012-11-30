@@ -30,7 +30,8 @@ namespace slib{
 			return ret;
 		}
 
-		static void inOrderTravel(BstNode* node){	
+		template <typename Func>
+		static void inOrderTravel(BstNode* node,Func f){	
 			if(node==NULL)
 					return;
 			std::vector<BstNode*> stack;
@@ -40,7 +41,7 @@ namespace slib{
 				if(stack.empty()) break;
 				node=stack.back();
 				stack.pop_back();
-				std::cout<<node->data<<" ";
+				f(node);				
 				node = node->right;
 			}
 		}
