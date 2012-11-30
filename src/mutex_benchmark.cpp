@@ -13,6 +13,7 @@
 
 #include <tbb/tick_count.h>
 #include <iostream>
+#include <functional>
 
 static int counter1=0;
 static int loop_times=100000;
