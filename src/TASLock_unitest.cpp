@@ -10,6 +10,7 @@
 #include <tbb/compat/thread>
 #endif
 
+#include <functional> //std::ref
 #include "ScopeGuard.h"
 #include "TASLock.h"
 

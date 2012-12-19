@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <stdlib.h>
+#include <vector>
 
 namespace slib{
 	template <typename T>
