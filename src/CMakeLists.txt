@@ -67,6 +67,9 @@ add_executable(slist_unitest slist_unitest.cpp slist.h slist.cpp)
 target_link_libraries(slist_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
 ADD_TEST(slist_unitest ${CMAKE_CURRENT_BINARY_DIR}/slist_unitest)
 
+add_executable(strop_unitest strop_unitest.cpp strop.h strop.cpp)
+target_link_libraries(strop_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
+ADD_TEST(strop_unitest ${CMAKE_CURRENT_BINARY_DIR}/strop_unitest)
 
 
 
