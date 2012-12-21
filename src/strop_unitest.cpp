@@ -22,6 +22,11 @@ TEST_F(StropTest, test_strlen) {
   EXPECT_EQ(2,slib::strlen(s2));
 }
 
+TEST_F(StropTest, test_strncmp) {	
+  const char* s1="a";
+  const char* s2="ab";
+  std::cout<<slib::strncmp(s1,s2,4)<<std::endl;
+}
 
 int main(int argc,char* argv[]){
   srand((unsigned int)time(NULL));
