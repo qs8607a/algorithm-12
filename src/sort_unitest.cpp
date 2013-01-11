@@ -14,6 +14,25 @@ public:
 	virtual void TearDown() {}
 };
 
+TEST_F(SortTest, binary_search) {
+	std::vector<int> randomInt;
+	randomInt.assign(8192, 0);
+	std::generate(randomInt.begin(), randomInt.end(), rand);
+	std::sort(randomInt.begin(), randomInt.end(), std::less<int>());
+	for(auto iter=randomInt.begin();iter!=randomInt.end();++iter){
+		auto searchResult=slib::binary_search(randomInt.begin(), randomInt.end(),*iter,[](int i,int j){return i-j;});
+		ASSERT_TRUE(searchResult!=randomInt.end());
+		ASSERT_EQ(*iter,*searchResult);		
+	}
+	/* 	for(int key : randomInt){
+		auto searchResult=slib::binary_search(randomInt.begin(), randomInt.end(),key,[](int i,int j){return i-j;});
+		ASSERT_TRUE(searchResult!=randomInt.end());
+		ASSERT_EQ(key,*searchResult);		
+	} */
+	
+}
+
+
 TEST_F(SortTest, swapInt) {
 	int a=10,b=30;
 	slib::swap(a,b);	
