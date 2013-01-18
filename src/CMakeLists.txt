@@ -12,6 +12,8 @@ add_executable(Array_unitest Array.cpp Array_unitest.cpp)
 target_link_libraries(Array_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
 ADD_TEST(Array_unitest ${CMAKE_CURRENT_BINARY_DIR}/Array_unitest)
 
+
+
 #TARGET_LINK_LIBRARIES(simple  gtest mmgc)
 add_executable(fib fib.cpp fib_unitest.cpp)
 target_link_libraries(fib gtest ${CMAKE_THREAD_LIBS_INIT})
@@ -27,6 +29,9 @@ target_link_libraries (mutex_benchmark  debug ${TBB_DEBUG_LIB})
 if(UNIX)
 target_link_libraries(mutex_benchmark rt)
 endif()
+
+add_executable(sort_benchmark sort_benchmark.cpp)
+
 
 add_executable(mutex_benchmark2 mutex_benchmark2.cpp ${PLATFORM_SOURCE})
 target_link_libraries (mutex_benchmark2  optimized ${TBB_LIB} )

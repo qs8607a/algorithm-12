@@ -32,6 +32,17 @@ TEST_F(SortTest, binary_search) {
 	
 }
 
+TEST_F(SortTest,median3){
+  auto intcomp=[](int a,int b)-> int {return a-b;}; 
+  ASSERT_EQ(slib::median3(1,2,3,intcomp),2);
+  ASSERT_EQ(slib::median3(1,3,2,intcomp),2);
+  ASSERT_EQ(slib::median3(2,1,3,intcomp),2);
+  ASSERT_EQ(slib::median3(2,3,1,intcomp),2);
+  ASSERT_EQ(slib::median3(3,1,2,intcomp),2);
+  ASSERT_EQ(slib::median3(3,2,1,intcomp),2);
+  ASSERT_EQ(slib::median3(3,2,2,intcomp),2);
+}
+
 
 TEST_F(SortTest, swapInt) {
 	int a=10,b=30;
@@ -100,6 +111,17 @@ TEST_F(SortTest, bubble_sort) {
 
 	decltype(randomInt) intcopy(randomInt);
 	slib::bubble_sort(randomInt.begin(), randomInt.end(), std::less<int>());
+	std::sort(intcopy.begin(), intcopy.end(), std::less<int>());
+	ASSERT_TRUE(std::equal(randomInt.begin(),randomInt.end(),intcopy.begin()));
+}
+
+TEST_F(SortTest, quick_sort) {
+	std::vector<int> randomInt;
+	randomInt.assign(100000, 0);
+	std::generate(randomInt.begin(), randomInt.end(), rand);
+
+	decltype(randomInt) intcopy(randomInt);
+	slib::quick_sort(randomInt.begin(), randomInt.end(), [](int a,int b)-> int {return a-b;});
 	std::sort(intcopy.begin(), intcopy.end(), std::less<int>());
 	ASSERT_TRUE(std::equal(randomInt.begin(),randomInt.end(),intcopy.begin()));
 }

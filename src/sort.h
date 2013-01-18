@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-//#include <algorithm>
+#include <algorithm>
 #include <functional>
 #include <limits.h> //CHAR_BIT
 
@@ -152,11 +152,7 @@ namespace slib {
 		}
 	}
 
-	/* \brief 选择排序,默认从小向大排列
-	* \param[in,out] first 排序的起始位置,必须是一个Forward Iterator,即必须支持运算符++
-	* \param[in,out] last  排序的终止位置(past-the-end).必须是一个Forward Iterator,即必须支持运算符++
-	*
-	*/
+	
 
 	template <typename T>
 	T roundup(T x,T y){
@@ -177,7 +173,90 @@ namespace slib {
 		return r;
 	}
 
-	/*
+	template <typename T,typename BinaryPredicate>
+	T median3(T a, T b, T c, BinaryPredicate comp){
+	  return comp(a,b) < 0?(comp(b,c)<0? b:comp(a,c)<0?c:a)
+	  :(comp(b,c)<0?(comp(a,c)<0?a:c):b);
+	}
+
+	template <typename T,typename BinaryPredicate>
+	T median3Iter(T a, T b, T c, BinaryPredicate comp){
+	  return comp(*a,*b) < 0?(comp(*b,*c)<0? b:comp(*a,*c)<0?c:a)
+	  :(comp(*b,*c)<0?(comp(*a,*c)<0?a:c):b);
+	}
+	
+	template <typename T,typename BinaryPredicate>
+	T median3AdjIter(T p, BinaryPredicate comp){
+	  auto a=*p;
+	  auto b=*++p;
+	  auto c=*++p;
+	  return comp(a,b) < 0?(comp(b,c)<0? p+1:comp(a,c)<0?p+2:p)
+	  :(comp(b,c)<0?(comp(a,c)<0?p:p+2):p+1);
+	}
+	
+	template <typename Iterator,typename BinaryPredicate>
+	void quick_sort(Iterator begin,Iterator end, BinaryPredicate comp){
+	  //elements in [begin,pa) always equals *begin
+	  //elements in (end,pd) always equals *begin
+	  //elements in [begin,pb) always less than or equals *begin
+	  //elements in (pc,end) always greater than or equals *begin
+	  Iterator pa,pb,pc,pd;
+	  //Now pa,pb points to the second element in [begin,end)	  
+	  pa=pb=begin+1;	  
+	  pc=pd=end-1;
+	  
+	  
+	  auto len=end-begin;
+	  if(false && len>40){
+	    Iterator pm=begin+len/2;
+	    auto d=len/8;
+	    //swap(*begin,*median3Iter(median3Iter(begin,begin+d,begin+d+d,comp),median3Iter(pm-d,pm,pm+d,comp),median3Iter(pd-d-d,pd-d,pd,comp),comp));
+	    swap(*begin,*median3Iter(median3AdjIter(begin,comp),median3AdjIter(pm-d,comp),median3AdjIter(pd-d-d,comp),comp));
+	  } else if(len >7){
+	    Iterator pm=begin+len/2;	    
+	    swap(*begin,*median3Iter(begin,pm,pd,comp));
+	  }
+	  
+	  //pb always >= pa
+	  //pd always >= pc	  
+	  while(true){
+	    int cmp_result;
+	    //把pb往右挪，直到找到大于a的
+	    while(pb<pc && (cmp_result=comp(*pb,*begin))<=0){
+	      if(cmp_result==0){
+		  std::swap(*pa,*pb);
+		  pa++;
+		}
+		pb++;
+	    }
+	    //把pc往左挪，直到找到小于a的
+	    while(pb<=pc && (cmp_result=comp(*pc,*begin))>=0){
+	      if(cmp_result==0){
+		  std::swap(*pc,*pd);
+		  pd--;
+		}
+		pc--;
+	    }
+	    if(pb > pc) break;
+	    swap(*pb,*pc);
+	    pb++;
+	    pc--;
+	  }
+	  //a pa pc pb pd
+	  auto r = std::min(pa - begin, pb - pa);
+	  std::swap_ranges(begin,begin+r,pb-r);
+	  r = std::min(pd - pc, end - pd - 1);
+	  std::swap_ranges(pb,pb+r,end-r);
+	  if((r=pb-pa) > 1){
+	    quick_sort(begin,begin+r,comp);
+	  }
+	  if((r=pd-pc) > 1){
+	    quick_sort(end-r,end,comp);
+	    //begin=end-r;
+	    //goto loop;
+	  }
+	}
+	/*	
 	void bucket_sort(uint64_t* first, uint64_t* last,uint64_t min,uint64_t max) {
 	const size_t inputSize=last-first;
 	const size_t bucketLength=roundup(inputSize,2);
@@ -224,42 +303,7 @@ namespace slib {
 	std::copy(source2_begin, source2_end, dest);
 	}
 	*/
-	//test for merge_2sorted_containers
-	//int main(){
-	//    int a[16];
-	//    std::vector<int> v(32);
-	//
-	//    //用当前时间初始化随机函数
-	//    srand( (unsigned)time( NULL ) );
-	//
-	//    //用随机数填充
-	//    std::generate(a,a+16,rand);
-	//    std::generate(v.begin(),v.end(),rand);
-	//    
-	//    std::cout<<"排序前:\n"
-	//        <<"first:";
-	//    std::copy(a,a+16,std::ostream_iterator<int>(std::cout," "));
-	//    std::cout<<"\nsecond:";
-	//    std::copy(v.begin(),v.end(),std::ostream_iterator<int>(std::cout," "));
-	//    std::cout<<std::endl;
-	//    
-	//
-	//    //对两个分别进行排序
-	//    std::sort(a,a+16);
-	//    std::sort(v.begin(),v.end());
-	//    std::cout<<"排序后:\n"
-	//        <<"first:";
-	//    std::copy(a,a+16,std::ostream_iterator<int>(std::cout," "));
-	//    std::cout<<"\nsecond:";
-	//    std::copy(v.begin(),v.end(),std::ostream_iterator<int>(std::cout," "));
-	//    std::cout<<std::endl;
-	//
-	//    //将排序后的数组和vector合并排序并输出
-	//    std::cout<<"合并后:";
-	//    merge_2sorted_containers(a,a+16,v.begin(),v.end(),std::ostream_iterator<int>(std::cout," "),std::less<int>());
-	//    
-	//  return 0;
-	//}
+
 
 
 }
