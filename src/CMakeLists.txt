@@ -12,7 +12,9 @@ add_executable(Array_unitest Array.cpp Array_unitest.cpp)
 target_link_libraries(Array_unitest gtest ${CMAKE_THREAD_LIBS_INIT})
 ADD_TEST(Array_unitest ${CMAKE_CURRENT_BINARY_DIR}/Array_unitest)
 
-
+include_directories(${OPENSSL_INCLUDE_DIR})
+add_executable(find_min_max find_min_max.cpp)
+target_link_libraries(find_min_max ${OPENSSL_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
 
 #TARGET_LINK_LIBRARIES(simple  gtest mmgc)
 add_executable(fib fib.cpp fib_unitest.cpp)
