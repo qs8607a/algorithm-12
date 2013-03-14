@@ -6,7 +6,8 @@ inline int comp(const void* a,const void* b) __attribute__((pure));
 inline int comp(const void* a,const void* b){return *(int*)a-*(int*)b;}
 
 int main(){
-  
+  srand((unsigned)time(NULL));
+
   const size_t len=100000000;
   auto num=std::unique_ptr<int[]>(new int[len]);
   auto end=num.get()+len;
