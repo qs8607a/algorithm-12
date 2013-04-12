@@ -56,10 +56,6 @@ namespace slib{
 		return(save);
 	}
 
-
-
-
-
 	char *strdup(const char *str){
 		const size_t len = strlen(str) + 1;
 		char * const copy = new char[len];	        
@@ -73,13 +69,8 @@ namespace slib{
 		for (; (*to = *from); ++from, ++to);
 		return(save);
 	}
-	/*
-	* Copy src to dst, truncating or null-padding to always copy n bytes.
-	* Return dst.
-	*/
-	char *
-		strncpy(char * __restrict dst, const char * __restrict src, size_t n)
-	{
+	
+	char * strncpy(char * __restrict dst, const char * __restrict src, size_t n){
 		if (n != 0) {
 			char *d = dst;
 			const char *s = src;
@@ -96,11 +87,6 @@ namespace slib{
 		return (dst);
 	}
 
-	/*
-	* Copy src to string dst of size siz.  At most siz-1 characters
-	* will be copied.  Always NUL terminates (unless siz == 0).
-	* Returns strlen(src); if retval >= siz, truncation occurred.
-	*/
 	size_t	strlcpy(char * __restrict dst, const char * __restrict src, size_t siz){
 		char *d = dst;
 		const char *s = src;
