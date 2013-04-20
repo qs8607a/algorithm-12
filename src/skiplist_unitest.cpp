@@ -1,9 +1,10 @@
-﻿// Copyright (c) 2011 The LevelDB Authors. All rights reserved.
+﻿
+// Copyright (c) 2011 The LevelDB Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file. See the AUTHORS file for names of contributors.
 
 #if HAVE_CONFIG_H
-# include <config.h>
+#include <config.h>
 #endif
 
 #include <gtest/gtest.h>
@@ -18,8 +19,7 @@
 
 #include <exception>
 #include <tbb/task_group.h>
-
-namespace slib {
+    namespace slib {
 
 typedef uint64_t Key;
 
@@ -35,8 +35,10 @@ struct Comparator {
   }
 };
 
-class SkipTest : public ::testing::Test { virtual void SetUp() {}
-	virtual void TearDown() {}};
+class SkipTest : public ::testing::Test {
+  virtual void SetUp() {}
+  virtual void TearDown() {}
+};
 
 TEST_F(SkipTest, Empty) {
   Arena arena;
@@ -122,8 +124,7 @@ TEST_F(SkipTest, InsertAndLookup) {
 
     // Compare against model iterator
     for (std::set<Key>::reverse_iterator model_iter = keys.rbegin();
-         model_iter != keys.rend();
-         ++model_iter) {
+         model_iter != keys.rend(); ++model_iter) {
       ASSERT_TRUE(iter.Valid());
       ASSERT_EQ(*model_iter, iter.key());
       iter.Prev();
@@ -221,7 +222,7 @@ class ConcurrentTest {
   SkipList<Key, Comparator> list_;
 
  public:
-  ConcurrentTest() : list_(Comparator(), &arena_) { }
+  ConcurrentTest() : list_(Comparator(), &arena_) {}
 
   // REQUIRES: External synchronization
   void WriteStep(Random* rnd) {
@@ -259,12 +260,9 @@ class ConcurrentTest {
 
         // Note that generation 0 is never inserted, so it is ok if
         // <*,0,*> is missing.
-        ASSERT_TRUE((gen(pos) == 0) ||
-                    (gen(pos) > initial_state.Get(key(pos)))
-                    ) << "key: " << key(pos)
-                      << "; gen: " << gen(pos)
-                      << "; initgen: "
-                      << initial_state.Get(key(pos));
+        ASSERT_TRUE((gen(pos) == 0) || (gen(pos) > initial_state.Get(key(pos))))
+            << "key: " << key(pos) << "; gen: " << gen(pos)
+            << "; initgen: " << initial_state.Get(key(pos));
 
         // Advance to next key in the valid key space
         if (key(pos) < key(current)) {
@@ -297,7 +295,7 @@ const uint32_t ConcurrentTest::K;
 // scaffolding.
 TEST_F(SkipTest, ConcurrentWithoutThreads) {
   ConcurrentTest test;
-  RandomImpl1 rnd((uint32_t)time(NULL));
+  RandomImpl1 rnd((uint32_t) time(NULL));
   for (int i = 0; i < 10000; i++) {
     test.ReadStep(&rnd);
     test.WriteStep(&rnd);
@@ -317,10 +315,7 @@ class TestState {
   };
 
   explicit TestState(int s)
-      : seed_(s),
-        quit_flag_(NULL),
-        state_(STARTING),
-        state_cv_(&mu_) {}
+      : seed_(s), quit_flag_(NULL), state_(STARTING), state_cv_(&mu_) {}
 
   void Wait(ReaderState s) {
     mu_.Lock();
@@ -354,11 +349,9 @@ static void ConcurrentReader(TestState* state) {
   state->Change(TestState::DONE);
 }
 
-
-
 static void RunConcurrent(int run) {
   tbb::task_group g;
-  const int seed = (uint32_t)time(NULL) + (run * 100);
+  const int seed = (uint32_t) time(NULL) + (run * 100);
   RandomImpl1 rnd(seed);
   const int N = 1000;
   const int kSize = 1000;
@@ -367,8 +360,10 @@ static void RunConcurrent(int run) {
       fprintf(stderr, "Run %d of %d\n", i, N);
     }
     TestState state(seed + 1);
-	g.run([&]{ConcurrentReader(&state);});
-    
+    g.run([&] {
+      ConcurrentReader(&state);
+    });
+
     state.Wait(TestState::RUNNING);
     for (int i = 0; i < kSize; i++) {
       state.t_.WriteStep(&rnd);
@@ -385,9 +380,9 @@ TEST_F(SkipTest, Concurrent3) { RunConcurrent(3); }
 TEST_F(SkipTest, Concurrent4) { RunConcurrent(4); }
 TEST_F(SkipTest, Concurrent5) { RunConcurrent(5); }
 
-}  // namespace 
+}  // namespace
 
-int main(int argc,char* argv[]){
-	::testing::InitGoogleTest(&argc, argv);  
-	return RUN_ALL_TESTS();
+int main(int argc, char* argv[]) {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }

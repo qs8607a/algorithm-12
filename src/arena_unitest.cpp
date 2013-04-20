@@ -1,23 +1,20 @@
-﻿#if HAVE_CONFIG_H
-# include <config.h>
+﻿
+#if HAVE_CONFIG_H
+#include <config.h>
 #endif
 
 #include <gtest/gtest.h>
 
 #include "randomImpl1.h"
 #include "arena.h"
-
-using namespace slib;
+    using namespace slib;
 
 class ArenaTest : public ::testing::Test {
-	virtual void SetUp() {}
-	virtual void TearDown() {}
+  virtual void SetUp() {}
+  virtual void TearDown() {}
 };
 
-
-TEST_F(ArenaTest, Empty) {
-  Arena arena;
-}
+TEST_F(ArenaTest, Empty) { Arena arena; }
 
 TEST_F(ArenaTest, Simple) {
   std::vector<std::pair<size_t, char*> > allocated;
@@ -30,8 +27,9 @@ TEST_F(ArenaTest, Simple) {
     if (i % (N / 10) == 0) {
       s = i;
     } else {
-      s = rnd.OneIn(4000) ? rnd.Uniform(6000) :
-          (rnd.OneIn(10) ? rnd.Uniform(100) : rnd.Uniform(20));
+      s = rnd.OneIn(4000)
+              ? rnd.Uniform(6000)
+              : (rnd.OneIn(10) ? rnd.Uniform(100) : rnd.Uniform(20));
     }
     if (s == 0) {
       // Our arena disallows size 0 allocations.
@@ -51,7 +49,7 @@ TEST_F(ArenaTest, Simple) {
     bytes += s;
     allocated.push_back(std::make_pair(s, r));
     ASSERT_GE(arena.MemoryUsage(), bytes);
-    if (i > N/10) {
+    if (i > N / 10) {
       ASSERT_LE(arena.MemoryUsage(), bytes * 1.10);
     }
   }
@@ -65,8 +63,7 @@ TEST_F(ArenaTest, Simple) {
   }
 }
 
-
-int main(int argc,char* argv[]){
-	::testing::InitGoogleTest(&argc, argv);  
-	return RUN_ALL_TESTS();
+int main(int argc, char* argv[]) {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }

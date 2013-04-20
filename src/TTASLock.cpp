@@ -1,4 +1,5 @@
-﻿/*
+﻿
+/*
  * TASLock.cpp
  *
  *  Created on: Mar 5, 2010
@@ -6,32 +7,28 @@
  */
 
 #if HAVE_CONFIG_H
-# include <config.h>
+#include <config.h>
 #endif
 
 #include "TTASLock.h"
+    namespace slib {
 
-namespace slib{
+TTASLock::TTASLock() { state = tbb::make_atomic<bool>(false); }
 
-TTASLock::TTASLock(){
-	state=tbb::make_atomic<bool>(false);
+void TTASLock::lock() {
+  while (true) {
+    while (state.load()) {
+    }
+    if (!state.fetch_and_store(true))
+      return;
+  }
 }
 
-void TTASLock::lock(){
-	while(true){
-		while(state.load()) {}
-		if(!state.fetch_and_store(true)) return;
-	}
+bool TTASLock::try_lock() {
+  //not impl
+  return false;
 }
 
-bool TTASLock::try_lock(){
-	//not impl
-	return false;
-}
-
-void TTASLock::unlock(){
-	state.store(false);
-}
+void TTASLock::unlock() { state.store(false); }
 
 }
-

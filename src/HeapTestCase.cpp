@@ -5,13 +5,11 @@
  *      Author: Changming Sun
  */
 
-
 #if HAVE_CONFIG_H
-# include <config.h>
+#include <config.h>
 #endif
-
 
 #include "HeapTestCase.h"
 #include <cppunit/extensions/HelperMacros.h>
 
-CPPUNIT_TEST_SUITE_REGISTRATION( HeapTestCase);
+CPPUNIT_TEST_SUITE_REGISTRATION(HeapTestCase);

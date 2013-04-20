@@ -19,40 +19,29 @@ static void PthreadCall(const char* label, int result) {
   }
 }
 
-Mutex::Mutex() { 
-	InitializeCriticalSection(&cs);
-		//throw std::runtime_error("init mutex fail");
+Mutex::Mutex() {
+  InitializeCriticalSection(&cs);
+  //throw std::runtime_error("init mutex fail");
 }
 
-Mutex::~Mutex() { 
-	DeleteCriticalSection(&cs);
-}
+Mutex::~Mutex() { DeleteCriticalSection(&cs); }
 
-void Mutex::Lock() {
-	EnterCriticalSection(&cs);
-}
-	
+void Mutex::Lock() { EnterCriticalSection(&cs); }
+
 void Mutex::Unlock() { LeaveCriticalSection(&cs); }
 
-CondVar::CondVar(Mutex* mu)
-    : mu_(mu) {
-		InitializeConditionVariable(&cond);
-}
+CondVar::CondVar(Mutex* mu) : mu_(mu) { InitializeConditionVariable(&cond); }
 
-CondVar::~CondVar() {//need do nothing
+CondVar::~CondVar() {  //need do nothing
 }
 
 void CondVar::Wait() {
-	SleepConditionVariableCS(&cond,&this->mu_->cs,INFINITE);
+  SleepConditionVariableCS(&cond, &this->mu_->cs, INFINITE);
 }
 
-void CondVar::Signal() {
-	WakeConditionVariable(&cond);
-}
+void CondVar::Signal() { WakeConditionVariable(&cond); }
 
-void CondVar::SignalAll() {
-  WakeAllConditionVariable(&cond);
-}
+void CondVar::SignalAll() { WakeAllConditionVariable(&cond); }
 
 }  // namespace port
 }  // namespace leveldb

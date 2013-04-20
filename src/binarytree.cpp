@@ -1,7 +1,5 @@
 #include "binarytree.h"
 
-namespace slib{
- void build123(){
-	
- }
+namespace slib {
+void build123() {}
 }
