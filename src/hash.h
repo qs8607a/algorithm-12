@@ -1,10 +1,10 @@
-﻿#pragma once
+﻿
+#pragma once
 
 #include <stddef.h>
 #include <stdint.h>
+    namespace slib {
 
-namespace slib {
-
-extern uint32_t Hash(const char* data, size_t n, uint32_t seed);
+  extern uint32_t Hash(const char * data, size_t n, uint32_t seed);
 
 }

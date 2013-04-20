@@ -8,16 +8,16 @@
 #define STORAGE_LEVELDB_PORT_PORT_POSIX_H_
 
 #if defined(OS_MACOSX) || defined(OS_FREEBSD)
-  #include <machine/endian.h>
+#include <machine/endian.h>
 #elif defined(OS_SOLARIS)
-  #include <sys/isa_defs.h>
-  #ifdef _LITTLE_ENDIAN
-    #define LITTLE_ENDIAN
-  #else
-    #define BIG_ENDIAN
-  #endif
+#include <sys/isa_defs.h>
+#ifdef _LITTLE_ENDIAN
+#define LITTLE_ENDIAN
 #else
-  #include <endian.h>
+#define BIG_ENDIAN
+#endif
+#else
+#include <endian.h>
 #endif
 #include <pthread.h>
 #ifdef SNAPPY
@@ -57,7 +57,7 @@ class Mutex {
 
   void Lock();
   void Unlock();
-  void AssertHeld() { }
+  void AssertHeld() {}
 
  private:
   friend class CondVar;
@@ -75,6 +75,7 @@ class CondVar {
   void Wait();
   void Signal();
   void SignalAll();
+
  private:
   pthread_cond_t cv_;
   Mutex* mu_;
@@ -102,8 +103,7 @@ inline bool Snappy_GetUncompressedLength(const char* input, size_t length,
 #endif
 }
 
-inline bool Snappy_Uncompress(const char* input, size_t length,
-                              char* output) {
+inline bool Snappy_Uncompress(const char* input, size_t length, char* output) {
 #ifdef SNAPPY
   return snappy::RawUncompress(input, length, output);
 #else
@@ -115,7 +115,7 @@ inline bool GetHeapProfile(void (*func)(void*, const char*, int), void* arg) {
   return false;
 }
 
-} // namespace port
-} // namespace leveldb
+}  // namespace port
+}  // namespace leveldb
 
 #endif  // STORAGE_LEVELDB_PORT_PORT_POSIX_H_

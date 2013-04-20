@@ -10,21 +10,16 @@
 
 #include <stdlib.h>
 
-template<typename T>
-class Array {
-private:
-	T* pStart;
-	T* pFinish;
-	T* pEndOfStorage;
+template <typename T> class Array {
+ private:
+  T* pStart;
+  T* pFinish;
+  T* pEndOfStorage;
 
-public:
-	Array():pStart(NULL),pFinish(NULL),pEndOfStorage(NULL) {
+ public:
+  Array() : pStart(NULL), pFinish(NULL), pEndOfStorage(NULL) {}
 
-	}
-
-	virtual ~Array() {
-
-	}
+  virtual ~Array() {}
 
 };
 

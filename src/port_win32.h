@@ -7,9 +7,9 @@
 #pragma once
 
 #if defined(OS_MACOSX) || defined(OS_FREEBSD)
-  #include <machine/endian.h>
+#include <machine/endian.h>
 #else
-  //#include <endian.h>
+//#include <endian.h>
 #define LITTLE_ENDIAN
 #endif
 
@@ -50,11 +50,11 @@ class Mutex {
 
   void Lock();
   void Unlock();
-  void AssertHeld() { }
+  void AssertHeld() {}
 
  private:
   friend class CondVar;
-  
+
   CRITICAL_SECTION cs;
   // No copying
   Mutex(const Mutex&);
@@ -68,16 +68,15 @@ class CondVar {
   void Wait();
   void Signal();
   void SignalAll();
+
  private:
-	 CONDITION_VARIABLE cond;
+  CONDITION_VARIABLE cond;
   Mutex* mu_;
 };
-
 
 inline bool GetHeapProfile(void (*func)(void*, const char*, int), void* arg) {
   return false;
 }
 
-} // namespace port
-} // namespace slib
-
+}  // namespace port
+}  // namespace slib

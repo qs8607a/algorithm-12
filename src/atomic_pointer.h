@@ -65,8 +65,9 @@ inline void MemoryBarrier() {
 class AtomicPointer {
  private:
   void* rep_;
+
  public:
-  AtomicPointer() { }
+  AtomicPointer() {}
   explicit AtomicPointer(void* p) : rep_(p) {}
   inline void* NoBarrier_Load() const { return rep_; }
   inline void NoBarrier_Store(void* v) { rep_ = v; }
@@ -86,9 +87,10 @@ class AtomicPointer {
 class AtomicPointer {
  private:
   std::atomic<void*> rep_;
+
  public:
-  AtomicPointer() { }
-  explicit AtomicPointer(void* v) : rep_(v) { }
+  AtomicPointer() {}
+  explicit AtomicPointer(void* v) : rep_(v) {}
   inline void* Acquire_Load() const {
     return rep_.load(std::memory_order_acquire);
   }

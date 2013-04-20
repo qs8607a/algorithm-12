@@ -1,38 +1,40 @@
-﻿#pragma once
+﻿
+#pragma once
 
 #include "port.h"
-
-namespace slib{
-class CountDownLatch{
+    namespace slib {
+class CountDownLatch {
 private:
 	int value;
 	port::Mutex m;
 	port::CondVar cond;
 public:
-	CountDownLatch(int v):value(v){}
-	void countDown(){
+	CountDownLatch(int v) : value(v) {}
+	void countDown() {
 		m.lock();
-		try{
-			if(value>0){
+		try {
+			if (value > 0) {
 			value--;
-			if(value==0)
+			if (value == 0)
 				cond.SignalAll();
 			}
-		}catch(...){
+		}
+  catch (...) {
 		  m.unlock();
 		  throw;
 		}
 		m.unlock();
 	}
 	
-	void await(){
+	void await() {
 		
 		m.lock();
-		try{
-		  while(value>0){
+		try {
+		  while (value > 0) {
 			cond.Wait();
 		   }
-		}catch(...){
+		}
+  catch (...) {
 		  m.unlock();
 		  throw;
 		}
@@ -40,4 +42,5 @@ public:
 		}
 	}
 }
-};
+}
+;

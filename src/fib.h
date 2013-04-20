@@ -1,5 +1,3 @@
 #pragma once
 
-namespace slib{
-int fib(int n);
-}
+namespace slib { int fib(int n); }
